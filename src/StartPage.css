@@ -6,6 +6,10 @@ body {
     color: white;
     text-align: center;
 }
+body.startpage-theme {
+    background-color: #152938 !important;
+}
+
 
 .app-container {
     display: flex;
