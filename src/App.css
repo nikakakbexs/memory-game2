@@ -1,0 +1,105 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #152938;
+    color: white;
+    text-align: center;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.game-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.settings-container {
+    background: #FCFCFC;
+    width: 500px;
+    padding: 40px;
+    border-radius: 20px;
+    border: 2px solid #152938;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.SelectThemeh3 {
+    position: relative;
+    right: 190px;
+    color: #7191A5;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.GridSizeh3{
+    position: relative;
+    right: 210px;
+    color: #7191A5;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    color: white;
+    font-size: 18px;
+    width: 256px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+    min-width: 80px;
+}
+
+.active {
+    background: #304859;
+    color: white;
+}
+
+.inactive {
+    background: #DCE2E9;
+    color: #304859;
+}
+
+.inactive:hover {
+    background: #6395B8;
+    color: white;
+}
+
+.start-btn {
+    margin-top: 20px;
+    background: #FDA214;
+    color: white;
+    width: 100%;
+    font-size: 22px;
+    padding: 15px;
+    border: 2px solid #FDA214;
+    border-radius: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.start-btn:hover {
+    background: #e69500;
+}
