@@ -4,7 +4,7 @@ import MemoryGame from "./Memory";
 
 function StartPage() {
   const [theme, setTheme] = useState("numbers");
-  const [gridSize, setGridSize] = useState(4); 
+  const [gridSize, setGridSize] = useState(4);
   const [gameStarted, setGameStarted] = useState(false);
 
   const handleStartGame = () => {
@@ -12,7 +12,7 @@ function StartPage() {
   };
 
   return gameStarted ? (
-    <MemoryGame gridSize={gridSize} />
+    <MemoryGame gridSize={gridSize} onNewGame={() => setGameStarted(false)} />
   ) : (
     <div className="app-container">
       <h1 className="game-title">Memory Game</h1>
@@ -51,10 +51,11 @@ function StartPage() {
             </button>
           </div>
         </div>
-
-        <button className="start-btn" onClick={handleStartGame}>
-          Start Game
-        </button>
+        <div className="start-btn-container">
+          <button className="start-btn" onClick={handleStartGame}>
+            Start Game
+          </button>
+        </div>
       </div>
     </div>
   );

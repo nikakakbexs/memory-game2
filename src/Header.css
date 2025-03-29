@@ -1,0 +1,38 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+  background-color: #152938; /* Background so header is visible */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000; /* Keep header on top */
+}
+
+.header-left h2 {
+  margin: 0;
+  font-size: 24px;
+  color: white;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.header-button {
+  background: #fda214;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.header-button:hover {
+  background: darkorange;
+}
