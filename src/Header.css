@@ -3,24 +3,24 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding: 16px;
-  background-color: #152938; /* Background so header is visible */
+  padding: 16px 32px; 
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000; /* Keep header on top */
+  z-index: 1000; 
 }
 
 .header-left h2 {
   margin: 0;
-  font-size: 24px;
-  color: white;
+  font-size: 35px;
+  color: #304859;
+  font-weight: bold;
 }
 
 .header-buttons {
   display: flex;
-  gap: 16px;
+  gap: 16px; 
 }
 
 .header-button {
@@ -28,11 +28,22 @@
   color: white;
   border: none;
   padding: 10px 15px;
-  border-radius: 8px;
+  border-radius: 13px;
   cursor: pointer;
   font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
 .header-button:hover {
-  background: darkorange;
+  background: darkorange; 
+}
+
+.header-button:nth-child(2) {
+  background: #dfe7ec; 
+  color: #304859;
+}
+
+.header-button:nth-child(2):hover {
+  background: #cfd8de; 
 }

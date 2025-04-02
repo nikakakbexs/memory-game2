@@ -9,7 +9,7 @@ const Header = ({ onRestart, onNewGame }) => {
       </div>
       <div className="header-buttons">
         <button className="header-button" onClick={onRestart}>
-          Restart Game
+          Restart
         </button>
         <button className="header-button" onClick={onNewGame}>
           New Game

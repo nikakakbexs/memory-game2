@@ -2,12 +2,12 @@ body {
   font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #152938;
   color: white;
   text-align: center;
 }
 body.startpage-theme {
-  background-color: #152938 !important;
+  background-color: #152938;
+  color: white;
 }
 
 .app-container {
