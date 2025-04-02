@@ -1,11 +1,18 @@
 import "./StartPage.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MemoryGame from "./Memory";
 
 function StartPage() {
   const [theme, setTheme] = useState("numbers");
   const [gridSize, setGridSize] = useState(4);
   const [gameStarted, setGameStarted] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.add("startpage-theme"); // StartPage-ის ფონი
+    return () => {
+      document.body.classList.remove("startpage-theme"); // წაშლა, როცა გვერდი იცვლება
+    };
+  }, []);
 
   const handleStartGame = () => {
     setGameStarted(true);

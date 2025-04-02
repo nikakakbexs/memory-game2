@@ -23,7 +23,13 @@ export default function MemoryGame({ gridSize, onNewGame }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [time, setTime] = useState(40);
 
-  // Reset board when gridSize changes
+  useEffect(() => {
+    document.body.classList.add("memory-theme"); // MemoryGame-ის ფონი
+    return () => {
+      document.body.classList.remove("memory-theme"); // წაშლა, როცა გვერდი იცვლება
+    };
+  }, []);
+
   useEffect(() => {
     setCards(generateCards(size));
     setLives(3);
@@ -31,7 +37,6 @@ export default function MemoryGame({ gridSize, onNewGame }) {
     setTime(40);
   }, [size]);
 
-  // Countdown timer effect
   useEffect(() => {
     const timerInterval = setInterval(() => {
       setTime((prevTime) => prevTime - 1);
@@ -39,14 +44,12 @@ export default function MemoryGame({ gridSize, onNewGame }) {
     return () => clearInterval(timerInterval);
   }, []);
 
-  // Automatically restart game when time runs out
   useEffect(() => {
     if (time <= 0) {
       restartGame();
     }
   }, [time]);
 
-  // Handle flipped cards logic
   useEffect(() => {
     if (flippedCards.length === 2) {
       setIsProcessing(true);
@@ -110,13 +113,6 @@ export default function MemoryGame({ gridSize, onNewGame }) {
       <Header onRestart={restartGame} onNewGame={onNewGame} />
 
       <div className="content-wrapper">
-        <div className="timer-display">Time: {formatTime(time)}</div>
-
-        <div className="stats">
-          <span className="score">Score: {score}</span>
-          <span className="lives">Lives: {lives}</span>
-        </div>
-
         <div
           className="game-board"
           style={{ gridTemplateColumns: `repeat(${size}, 1fr)` }}
@@ -135,6 +131,23 @@ export default function MemoryGame({ gridSize, onNewGame }) {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="stats-wrapper">
+          <div className="timer-display">
+            <span className="timer-label">Time</span>
+            <span className="timer-value">{formatTime(time)}</span>
+          </div>
+
+          <div className="score-display">
+            <span className="score-label">Score</span>
+            <span className="score-value">{score}</span>
+          </div>
+
+          <div className="lives-display">
+            <span className="lives-label">Lives</span>
+            <span className="lives-value">{lives}</span>
+          </div>
         </div>
       </div>
     </div>
