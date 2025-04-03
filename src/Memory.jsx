@@ -24,9 +24,9 @@ export default function MemoryGame({ gridSize, onNewGame }) {
   const [time, setTime] = useState(40);
 
   useEffect(() => {
-    document.body.classList.add("memory-theme"); // MemoryGame-ის ფონი
+    document.body.classList.add("memory-theme");
     return () => {
-      document.body.classList.remove("memory-theme"); // წაშლა, როცა გვერდი იცვლება
+      document.body.classList.remove("memory-theme"); 
     };
   }, []);
 
@@ -55,21 +55,27 @@ export default function MemoryGame({ gridSize, onNewGame }) {
       setIsProcessing(true);
       const [first, second] = flippedCards;
       if (cards[first].value === cards[second].value) {
+       
         setCards((prev) =>
           prev.map((card, i) =>
-            i === first || i === second ? { ...card, matched: true } : card
+            i === first || i === second
+              ? { ...card, matched: true, flipped: true }
+              : card
           )
         );
         setScore((prevScore) => prevScore + 1);
       } else {
+       
+        setTimeout(() => {
+          setCards((prev) =>
+            prev.map((card, i) =>
+              i === first || i === second ? { ...card, flipped: false } : card
+            )
+          );
+        }, 1000);
         setLives((prevLives) => prevLives - 1);
       }
       setTimeout(() => {
-        setCards((prev) =>
-          prev.map((card, i) =>
-            i === first || i === second ? { ...card, flipped: false } : card
-          )
-        );
         setFlippedCards([]);
         setIsProcessing(false);
       }, 1000);

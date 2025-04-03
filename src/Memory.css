@@ -119,39 +119,55 @@ button:hover {
   justify-content: center;
   font-size: 24px;
   font-weight: bold;
-  border-radius: 50%;
-  background-color: #304859;
-  color: transparent;
+  border-radius: 50%; 
+  background-color: #2c3e50; 
+  color: white;
   cursor: pointer;
+  transition: transform 0.4s ease, background-color 0.3s ease, color 0.3s ease;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   user-select: none;
-}
-
-.card.flipped {
-  background-color: #ffffff;
-  color: black;
-}
-
-.card.matched {
-  background-color: #f39c12;
-  color: black;
-}
-
-.card .back {
-  display: none;
+  position: relative;
+  perspective: 1000px; 
 }
 
 .card .front {
-  display: block;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backface-visibility: hidden;
 }
 
-.inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+.card.flipped .front {
+  opacity: 1;
 }
+
+.card.flipped {
+  background-color: #BCCED9; 
+  color: #304859; 
+  transform: scale(1.1);
+  transition: transform 0.4s ease, background-color 0.3s ease;
+  animation: flip 0.4s backwards;
+}
+
+
+.card.matched {
+  background-color: #FDA214 !important; 
+  color: white !important; 
+  transform: scale(1.1); 
+  pointer-events: none; 
+}
+
+@keyframes flip {
+  0% {
+    transform: scale(1) rotateY(0deg);
+  }
+  50% {
+    transform: scale(1.2) rotateY(90deg);
+  }
+  100% {
+    transform: scale(1.1) rotateY(180deg);
+  }
+}
+
 
 .controls {
   margin-top: 20px;
@@ -182,61 +198,4 @@ button:hover {
   margin-bottom: 16px;
   color: white;
   text-align: center;
-}
-
-.card {
-  width: 70px;
-  height: 70px;
-  perspective: 1200px;
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.inner {
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transform-origin: center center; /* ensure inner rotates from center */
-  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.card.flipped .inner {
-  transform: rotateX(180deg);
-}
-
-/* When flipped, mirror the entire card */
-.card.flipped {
-  transform: scaleX(-1);
-}
-
-.front,
-.back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: bold;
-  transform-origin: center center; /* center the transform for both faces */
-}
-
-.front {
-  background-color: #ffffff;
-  color: black;
-  transform: rotateX(180deg);
-}
-
-/* Cancel the parent's scaleX(-1) on the front face so numbers appear normal */
-.card.flipped .front {
-  transform: rotateX(180deg) scaleX(-1);
-}
-
-.back {
-  background-color: #304859;
-  color: transparent;
 }
