@@ -106,3 +106,32 @@ body.startpage-theme {
 .start-btn:hover {
   background: #e69500;
 }
+@media (max-width: 600px) {
+  .settings-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .game-title {
+    font-size: 24px;
+  }
+
+  .SelectThemeh3,
+  .GridSizeh3 {
+    right: 0;
+    align-self: flex-start;
+    text-align: left;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+
+  .start-btn {
+    width: 100%;
+    font-size: 18px;
+    padding: 12px;
+  }
+}
