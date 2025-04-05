@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "./Header";
+import Results from "./Results";
 import "./Memory.css";
 
 const generateCards = (size) => {
@@ -20,70 +21,96 @@ export default function MemoryGame({ gridSize, onNewGame }) {
   const [flippedCards, setFlippedCards] = useState([]);
   const [lives, setLives] = useState(3);
   const [score, setScore] = useState(0);
+  const [moves, setMoves] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [time, setTime] = useState(40);
+  const [isGameOver, setIsGameOver] = useState(false);
+
 
   useEffect(() => {
     document.body.classList.add("memory-theme");
     return () => {
-      document.body.classList.remove("memory-theme"); 
+      document.body.classList.remove("memory-theme");
     };
   }, []);
 
+ 
   useEffect(() => {
     setCards(generateCards(size));
     setLives(3);
     setScore(0);
+    setMoves(0);
     setTime(40);
+    setIsGameOver(false);
   }, [size]);
 
+
   useEffect(() => {
-    const timerInterval = setInterval(() => {
-      setTime((prevTime) => prevTime - 1);
-    }, 1000);
-    return () => clearInterval(timerInterval);
-  }, []);
+    if (isGameOver) return;
+    if (time > 0) {
+      const timerId = setTimeout(() => {
+        setTime((prevTime) => prevTime - 1);
+      }, 1000);
+      return () => clearTimeout(timerId);
+    }
+  }, [time, isGameOver]);
+
 
   useEffect(() => {
     if (time <= 0) {
-      restartGame();
+      setIsGameOver(true);
     }
   }, [time]);
 
+ 
   useEffect(() => {
-    if (flippedCards.length === 2) {
+    if (flippedCards.length === 2 && !isProcessing) {
       setIsProcessing(true);
+      setMoves((prev) => prev + 1);
       const [first, second] = flippedCards;
-      if (cards[first].value === cards[second].value) {
+     
+      const card1 = cards[first];
+      const card2 = cards[second];
+
+      if (card1.value === card2.value) {
        
-        setCards((prev) =>
-          prev.map((card, i) =>
+        setScore((prevScore) => prevScore + 1);
+        setCards((prevCards) =>
+          prevCards.map((card, i) =>
             i === first || i === second
               ? { ...card, matched: true, flipped: true }
               : card
           )
         );
-        setScore((prevScore) => prevScore + 1);
+        setTimeout(() => {
+          setFlippedCards([]);
+          setIsProcessing(false);
+        }, 1000);
       } else {
        
+        setLives((prevLives) => Math.max(prevLives - 1, 0));
         setTimeout(() => {
-          setCards((prev) =>
-            prev.map((card, i) =>
+          setCards((prevCards) =>
+            prevCards.map((card, i) =>
               i === first || i === second ? { ...card, flipped: false } : card
             )
           );
+          setFlippedCards([]);
+          setIsProcessing(false);
         }, 1000);
-        setLives((prevLives) => prevLives - 1);
       }
-      setTimeout(() => {
-        setFlippedCards([]);
-        setIsProcessing(false);
-      }, 1000);
     }
-  }, [flippedCards, cards]);
+  }, [flippedCards, isProcessing]); 
+  
+  useEffect(() => {
+    const totalPairs = (size * size) / 2;
+    if (score === totalPairs || lives <= 0) {
+      setIsGameOver(true);
+    }
+  }, [score, lives, size]);
 
   const handleClick = (index) => {
-    if (isProcessing) return;
+    if (isProcessing || isGameOver) return;
     if (
       flippedCards.length < 2 &&
       !cards[index].flipped &&
@@ -101,9 +128,11 @@ export default function MemoryGame({ gridSize, onNewGame }) {
     setCards(generateCards(size));
     setLives(3);
     setScore(0);
+    setMoves(0);
     setFlippedCards([]);
     setIsProcessing(false);
     setTime(40);
+    setIsGameOver(false);
   };
 
   const formatTime = (seconds) => {
@@ -156,6 +185,16 @@ export default function MemoryGame({ gridSize, onNewGame }) {
           </div>
         </div>
       </div>
+
+      {isGameOver && (
+        <Results
+          score={score}
+          moves={moves}
+          time={formatTime(time)}
+          onRestart={restartGame}
+          onNewGame={onNewGame}
+        />
+      )}
     </div>
   );
 }
